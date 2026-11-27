@@ -1,0 +1,68 @@
+{
+  "name": "link-sentry",
+  "version": "0.1.0",
+  "description": "Find broken links in Markdown docs. A CLI and a GitHub Action.",
+  "type": "module",
+  "bin": {
+    "link-sentry": "./dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "action.yml",
+    "action",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "author": "frozenmango8",
+  "license": "MIT",
+  "keywords": [
+    "markdown",
+    "links",
+    "link-checker",
+    "broken-links",
+    "cli",
+    "github-action",
+    "documentation",
+    "anchor"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frozenmango8/link-sentry.git"
+  },
+  "bugs": {
+    "url": "https://github.com/frozenmango8/link-sentry/issues"
+  },
+  "homepage": "https://github.com/frozenmango8/link-sentry#readme",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "github-slugger": "^2.0.0",
+    "mdast-util-from-markdown": "^2.1.0",
+    "mdast-util-gfm": "^3.1.0",
+    "mdast-util-to-string": "^4.0.0",
+    "micromark-extension-gfm": "^3.0.0",
+    "tinyglobby": "^0.2.17",
+    "unist-util-visit": "^5.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.11",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.2"
+  }
+}

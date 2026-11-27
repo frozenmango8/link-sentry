@@ -1,0 +1,16 @@
+{
+  "patterns": ["docs/**/*.md", "README.md"],
+  "concurrency": 8,
+  "timeout": 10000,
+  "retries": 2,
+  "maxRedirects": 5,
+  "maxRetryWait": 15000,
+  "allowRateLimit": false,
+  "ignore": [
+    "https://example\\.com/private",
+    "localhost",
+    "127\\.0\\.0\\.1"
+  ],
+  "exclude": ["**/CHANGELOG.md"],
+  "headerHosts": ["docs.example.com"]
+}
