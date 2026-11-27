@@ -1,0 +1,84 @@
+name: Link Sentry
+description: Find broken links in Markdown documentation
+author: frozenmango8
+
+branding:
+  icon: link
+  color: blue
+
+inputs:
+  paths:
+    description: >-
+      Markdown globs to check. Put each glob on its own line. A single line
+      may also list space-separated globs.
+    required: false
+    default: '**/*.md'
+  config:
+    description: Path to a link-sentry JSON config file.
+    required: false
+    default: ''
+  ignore:
+    description: Extra ignore regular expressions, one per line.
+    required: false
+    default: ''
+  concurrency:
+    description: Maximum number of in-flight HTTP requests.
+    required: false
+    default: ''
+  timeout:
+    description: Per-request timeout in milliseconds.
+    required: false
+    default: ''
+  retries:
+    description: Extra attempts for timeouts, network errors, HTTP 429, and 5xx.
+    required: false
+    default: ''
+  root:
+    description: Directory used to resolve links that start with a slash.
+    required: false
+    default: ''
+  allow-rate-limit:
+    description: When true, a link that is still HTTP 429 after retries does not fail the job.
+    required: false
+    default: 'false'
+  skip-external:
+    description: When true, only relative file links and in-page anchors are checked.
+    required: false
+    default: 'false'
+  skip-anchors:
+    description: When true, heading fragments are not checked.
+    required: false
+    default: 'false'
+  skip-images:
+    description: When true, image destinations are not checked.
+    required: false
+    default: 'false'
+  verbose:
+    description: When true, print every link, including ones that passed.
+    required: false
+    default: 'false'
+  json-output:
+    description: Write the JSON report to this path.
+    required: false
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - name: Check Markdown links
+      shell: bash
+      env:
+        LS_PATHS: ${{ inputs.paths }}
+        LS_CONFIG: ${{ inputs.config }}
+        LS_IGNORE: ${{ inputs.ignore }}
+        LS_CONCURRENCY: ${{ inputs.concurrency }}
+        LS_TIMEOUT: ${{ inputs.timeout }}
+        LS_RETRIES: ${{ inputs.retries }}
+        LS_ROOT: ${{ inputs.root }}
+        LS_ALLOW_RATE_LIMIT: ${{ inputs.allow-rate-limit }}
+        LS_SKIP_EXTERNAL: ${{ inputs.skip-external }}
+        LS_SKIP_ANCHORS: ${{ inputs.skip-anchors }}
+        LS_SKIP_IMAGES: ${{ inputs.skip-images }}
+        LS_VERBOSE: ${{ inputs.verbose }}
+        LS_JSON_OUTPUT: ${{ inputs.json-output }}
+      run: bash "$GITHUB_ACTION_PATH/action/run.sh"

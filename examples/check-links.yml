@@ -1,0 +1,26 @@
+# Copy this file to .github/workflows/links.yml
+# Pin a release tag or commit SHA in `uses` once you have one.
+name: Links
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: frozenmango8/link-sentry@v1
+        with:
+          paths: |
+            docs/**/*.md
+            README.md
+          # Give slow documentation hosts a little room, then back off on 429.
+          timeout: '15000'
+          retries: '2'
+          # Uncomment when a host rate-limits CI and you would rather warn.
+          # allow-rate-limit: 'true'
